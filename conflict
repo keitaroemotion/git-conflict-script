@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+
+conflicts = `git status`
+  .split(/\n/)
+  .select {|line| /both modified:/ =~ line}
+  .map    {|line| line.gsub(/both modified:/, "").strip}
+
+p "==================================="
+conflicts.each do |conflict|
+  p conflict
+  system "vim #{conflict}"
+end
+p "==================================="
+
